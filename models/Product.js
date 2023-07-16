@@ -21,6 +21,7 @@ const productSchema = new mongoose.Schema({
     },
     isActive: { 
         type: Boolean, 
+        default: true
     },
     createdOn: { 
         type: Date, 
@@ -28,7 +29,7 @@ const productSchema = new mongoose.Schema({
     },
     createdBy: { 
         type: mongoose.Schema.Types.ObjectId, 
-        ref: 'User'
+        ref: 'User',
     } 
 });
 

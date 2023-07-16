@@ -13,6 +13,9 @@ const userController = require('../controllers/userController');
 const { authenticateUser } = require('../middlewares/authenticationMiddleware');
 const { authorizeAdmin } = require('../middlewares/authorizationMiddleware');
 
+// User registration
+route.post('/register', userController.registerUser);
+
 // Get All Users
 route.get('/', authenticateUser, authorizeAdmin, userController.getAllUsers);
 

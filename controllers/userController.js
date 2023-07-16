@@ -214,6 +214,32 @@ const updateOrderItemQuantity = (req, res) => {
     });
 };
 
+// Register User
+const registerUser = (req, res) => {
+  const { email, password, isAdmin } = req.body;
+
+  // Check if the user with the same email already exists
+  User.findOne({ email })
+    .then(existingUser => {
+      if (existingUser) {
+        return res.status(400).json({ error: 'User with this email already exists' });
+      }
+
+      // Create a new user
+      const newUser = new User({ email, password, isAdmin });
+      newUser.save()
+        .then(user => {
+          res.status(200).json({ message: 'User registered successfully', user });
+        })
+        .catch(error => {
+          res.status(500).json({ error: 'Failed to register user' });
+        });
+    })
+    .catch(error => {
+      res.status(500).json({ error: 'Failed to check user existence' });
+    });
+};
+
 module.exports = {
     updateUser,
     getUserDetails,
@@ -223,5 +249,6 @@ module.exports = {
     removeOrderProduct,
     createOrder,
     getUserOrders,
+    registerUser,
     updateOrderItemQuantity
 };

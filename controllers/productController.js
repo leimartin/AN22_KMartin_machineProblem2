@@ -78,9 +78,9 @@ const getProductById = (req, res) => {
 // Update Product info (Admin only)
 const updateProduct = (req, res) => {
     const productId = req.params.productId;
-    const { name, description, price } = req.body;
+    const { name, description, price, isActive } = req.body;
 
-    Product.findByIdAndUpdate(productId, { name, description, price }, { new: true })
+    Product.findByIdAndUpdate(productId, { name, description, price, isActive }, { new: true })
     .then((product) => {
         if (!product) {
             return res.status(404).json({ error: 'Product not found' });
